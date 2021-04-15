@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:bv="clr-namespace:Gerenciamento_OLX_App.ViewModel.Behaviors_Vendas"
+             mc:Ignorable="d"
+             x:Class="Gerenciamento_OLX_App.View.VendasPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Adcionar" IconImageSource="estoque" Command="{Binding GoEstoqueCommand}"></ToolbarItem>
+        <ToolbarItem Text="Atualizar" IconImageSource="chat" Command="{Binding GoChatCommand}"></ToolbarItem>
+
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" BackgroundColor="#dfdfdf" Padding="15">
+                <StackLayout Orientation="Vertical" Margin="10,0">
+                    <Label Text="Investido" TextColor="Black" FontSize="15" HorizontalTextAlignment="Center"></Label>
+                    <Label Text="{Binding V_Investido, StringFormat='R$ {0}'}" TextColor="Green" FontSize="18" HorizontalTextAlignment="Center"></Label>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" Margin="10,0">
+                    <Label Text="Lucro" TextColor="Black" FontSize="15" HorizontalTextAlignment="Center"></Label>
+                    <Label Text="{Binding V_Lucro, StringFormat='R$ {0}'}" TextColor="Green" FontSize="18" HorizontalTextAlignment="Center"></Label>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" Margin="10,0">
+                    <Label Text="Margem" TextColor="Black" FontSize="15" HorizontalTextAlignment="Center"></Label>
+                    <Label Text="{Binding V_Margem, StringFormat='{0:F3}%'}" TextColor="Green" FontSize="18" HorizontalTextAlignment="Center"></Label>
+                </StackLayout>
+                
+               
+            </StackLayout>
+
+            <ListView ItemsSource="{Binding Vendas}" HasUnevenRows="True" SeparatorVisibility="Default" >
+
+                <ListView.Header>
+                    
+                    <StackLayout HorizontalOptions="Center">
+
+                        <StackLayout Orientation="Horizontal">
+                            
+                            <StackLayout Orientation="Horizontal" Margin="5,0,0,0">
+                                <Label Text="De"/>
+                                <DatePicker Date="{Binding DataInicio, Mode=TwoWay}" FontSize="15" Format="dd/MM/yyyy"/>
+                            </StackLayout>
+                            
+                            <StackLayout Orientation="Horizontal" Margin="5,0,0,0">
+                                <Label Text="á"/>
+                                <DatePicker Date="{Binding DataFim, Mode=TwoWay}" FontSize="15" Format="dd/MM/yyyy">
+                                    <DatePicker.Behaviors>
+                                        <bv:PesquisaBehavior/>
+                                    </DatePicker.Behaviors>
+                                </DatePicker>
+                            </StackLayout>                          
+                            
+                        </StackLayout>                        
+                  
+                    </StackLayout>
+                </ListView.Header>
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="5, 10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="{Binding Nomev}" FontSize="18" TextColor="#6e2cd6" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                <Label Text="Vendido" TextColor="#6e2cd6" Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                                <Label Text="{Binding PrecoVenda, StringFormat='{0:C}'}" TextColor="Black" Grid.Row="1" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                                <Label Text="Margem" TextColor="#6e2cd6" Grid.Row="0" Grid.Column="2" HorizontalTextAlignment="Center"/>
+                                <Label Text="{Binding Lucrov, StringFormat='{0:0,0}%'}" TextColor="Green" Grid.Row="1" Grid.Column="2" HorizontalTextAlignment="Center"/>
+                                <Label Text="Data" TextColor="#6e2cd6" Grid.Row="0" Grid.Column="3" HorizontalTextAlignment="Center"/>
+                                <Label Text="{Binding DataVendav, StringFormat='{}{0:d}'}" TextColor="Black" Grid.Row="1" Grid.Column="3" HorizontalTextAlignment="Center"/>
+
+                            </Grid>
+                  
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
