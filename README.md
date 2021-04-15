@@ -1,0 +1,2 @@
+# ProjetoManagerOLX
+Gerenciamento de vendas
